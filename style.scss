@@ -1,0 +1,53 @@
+@use 'variables' as vars;
+@use 'px_to_rem';
+
+$first-color: vars.$primary;
+$second-color: vars.$secondary;
+$third-color: vars.$ternary;
+
+body {
+    margin: px_to_rem.convert(10px) px_to_rem.convert(15px);
+}
+
+div {
+    border: px_to_rem.convert(1px) solid $first-color;
+    text-align: center;
+
+    h1 {
+        color: $third-color;
+        text-decoration: underline;
+        text-decoration-color: $second-color;
+        text-underline-position: under;
+    }
+}
+
+@mixin article-styles($color, $border-color: $third-color, $font-size: 1rem) {
+    width: px_to_rem.convert(200px);
+    height: px_to_rem.convert(100px);
+    border: 1px solid $border-color;
+    flex-grow: 1;
+    padding: px_to_rem.convert(10px);
+    font-size: $font-size;
+    color: $color;
+}
+
+section {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: px_to_rem.convert(20px);
+
+    article {
+        &:nth-child(odd) {
+            @include article-styles($second-color);
+        }
+
+        &:nth-child(even) {
+            @include article-styles($first-color);
+        }
+    }
+
+    #footer {
+        @include article-styles($third-color, $second-color, px_to_rem.convert(24px));
+    }
+}
