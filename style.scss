@@ -1,27 +1,23 @@
 @use 'variables' as vars;
 @use 'px_to_rem';
 
-$first-color: vars.$primary;
-$second-color: vars.$secondary;
-$third-color: vars.$ternary;
-
 body {
     margin: px_to_rem.convert(10px) px_to_rem.convert(15px);
 }
 
 div {
-    border: px_to_rem.convert(1px) solid $first-color;
+    border: px_to_rem.convert(1px) solid vars.$primary;
     text-align: center;
 
     h1 {
-        color: $third-color;
+        color: vars.$ternary;
         text-decoration: underline;
-        text-decoration-color: $second-color;
+        text-decoration-color: vars.$secondary;
         text-underline-position: under;
     }
 }
 
-@mixin article-styles($color, $border-color: $third-color, $font-size: 1rem) {
+@mixin article-styles($color, $border-color: vars.$ternary, $font-size: 1rem) {
     width: px_to_rem.convert(200px);
     height: px_to_rem.convert(100px);
     border: 1px solid $border-color;
@@ -39,15 +35,15 @@ section {
 
     article {
         &:nth-child(odd) {
-            @include article-styles($second-color);
+            @include article-styles(vars.$secondary);
         }
 
         &:nth-child(even) {
-            @include article-styles($first-color);
+            @include article-styles(vars.$primary);
         }
     }
 
     #footer {
-        @include article-styles($third-color, $second-color, px_to_rem.convert(24px));
+        @include article-styles(vars.$ternary, vars.$secondary, px_to_rem.convert(24px));
     }
 }
